@@ -23,6 +23,6 @@ public class AnimeController {
     @GetMapping(path = "list")
     public List<Anime> list() {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return List.of(new Anime("Cavaleiros do Zoodiaco"), new Anime("Caverna do Dragão"));
+        return List.of(new Anime("Cavaleiros do Zoodiaco"), new Anime("Caverna do Dragão"), new Anime("Corrida Maluca"));
     }
 }
