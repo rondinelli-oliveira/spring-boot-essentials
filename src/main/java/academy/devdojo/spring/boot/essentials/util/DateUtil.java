@@ -1,6 +1,5 @@
 package academy.devdojo.spring.boot.essentials.util;
 
-
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
