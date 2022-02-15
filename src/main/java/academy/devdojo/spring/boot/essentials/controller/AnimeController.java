@@ -37,6 +37,13 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.findById(id));
     }
 
+    @PostMapping
+    public ResponseEntity<Anime> save(@RequestBody Anime anime) {
+        log.info("Cadastrando desenho: ");
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
+    }
+  
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
         log.info("Removendo o desenho por codigo: ");
@@ -44,5 +51,4 @@ public class AnimeController {
         animeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
