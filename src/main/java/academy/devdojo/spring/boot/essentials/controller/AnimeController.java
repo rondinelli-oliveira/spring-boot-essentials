@@ -43,12 +43,20 @@ public class AnimeController {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
-  
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
         log.info("Removendo o desenho por codigo: ");
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         animeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody Anime anime) {
+        log.info("Atualizando o desenho por codigo: ");
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        animeService.replace(anime);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
