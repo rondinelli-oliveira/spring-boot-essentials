@@ -22,4 +22,8 @@ public class AnimeService {
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found."));
     }
+
+    public void delete(long id) {
+        animes.remove(findById(id));
+    }
 }
