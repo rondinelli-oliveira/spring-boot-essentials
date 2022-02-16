@@ -1,6 +1,8 @@
 package academy.devdojo.spring.boot.essentials.controller;
 
 import academy.devdojo.spring.boot.essentials.domain.Anime;
+import academy.devdojo.spring.boot.essentials.requests.AnimePostRequestBody;
+import academy.devdojo.spring.boot.essentials.requests.AnimePutRequestBody;
 import academy.devdojo.spring.boot.essentials.service.AnimeService;
 import academy.devdojo.spring.boot.essentials.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +36,14 @@ public class AnimeController {
     public ResponseEntity<Anime> findById(@PathVariable long id) {
         log.info("Listando o desenho por codigo: ");
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(animeService.findById(id));
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime) {
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
         log.info("Cadastrando desenho: ");
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
+        return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -53,10 +55,10 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Anime anime) {
+    public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody) {
         log.info("Atualizando o desenho por codigo: ");
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        animeService.replace(anime);
+        animeService.replace(animePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
