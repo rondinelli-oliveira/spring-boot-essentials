@@ -9,6 +9,6 @@ spring:
     password: 123456
   jpa:
     hibernate:
-      ddl-auto: update
-      generate-ddl: true
-      show-sql: true
+    ddl-auto: update
+    generate-ddl: true
+    show-sql: true
