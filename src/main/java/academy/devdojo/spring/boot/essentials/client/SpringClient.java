@@ -3,12 +3,17 @@ package academy.devdojo.spring.boot.essentials.client;
 import academy.devdojo.spring.boot.essentials.domain.Anime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-public class SpringClient1 {
+import java.util.Arrays;
+import java.util.List;
 
-    private static final Logger log = LoggerFactory.getLogger(SpringClient1.class);
+public class SpringClient {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringClient.class);
 
     public static void main(String[] args) {
         ResponseEntity<Anime> entity = new RestTemplate().getForEntity("http://localhost:8080/animes/{id}", Anime.class,2);
@@ -17,6 +22,15 @@ public class SpringClient1 {
         Anime object = new RestTemplate().getForObject("http://localhost:8080/animes/{id}", Anime.class,2);
 
         log.info(String.valueOf(object));
+
+        Anime[] animes = new RestTemplate().getForObject("http://localhost:8080/animes/all", Anime[].class);
+
+        log.info(Arrays.toString(animes));
+
+        ResponseEntity<List<Anime>> animesList = new RestTemplate().exchange("http://localhost:8080/animes/all", HttpMethod.GET, null,
+                new ParameterizedTypeReference<>() {});
+
+        log.info(String.valueOf(animesList.getBody()));
     }
 }
 
