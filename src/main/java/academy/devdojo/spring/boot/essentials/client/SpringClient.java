@@ -39,6 +39,24 @@ public class SpringClient {
         ResponseEntity<Anime> objectPostSaved = new RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.POST,
                 new HttpEntity<>(objectPost, createJsonHeader()), Anime.class);
         log.info("Saved anime {}", objectPostSaved);
+
+        Anime objectPut = objectPostSaved.getBody();
+        objectPut.setName("Corrida Maluca");
+
+        ResponseEntity<Void> objectPutUpdated = new RestTemplate().exchange("http://localhost:8080/animes/",
+                HttpMethod.PUT,
+                new HttpEntity<>(objectPut, createJsonHeader()),
+                Void.class);
+
+        log.info(String.valueOf(objectPutUpdated));
+
+        ResponseEntity<Void> objectDeleted = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                objectPut.getId());
+
+        log.info(String.valueOf(objectDeleted));
     }
 
     private static HttpHeaders createJsonHeader() {
