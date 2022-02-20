@@ -52,7 +52,6 @@ class AnimeRepositoryTest {
         this.animeRepository.delete(animeSaved);
         Optional<Anime> animeOptional = this.animeRepository.findById(animeSaved.getId());
         Assertions.assertThat(animeOptional).isEmpty();
-
     }
 
     @Test
@@ -64,7 +63,6 @@ class AnimeRepositoryTest {
         List<Anime> animes = this.animeRepository.findByName(name);
         Assertions.assertThat(animes).isNotEmpty();
         Assertions.assertThat(animes).contains(animeSaved);
-
     }
 
     @Test
@@ -74,11 +72,9 @@ class AnimeRepositoryTest {
         Assertions.assertThat(animes).isEmpty();
     }
 
-
     private Anime createAnime() {
         return Anime.builder()
                 .name("Cavaleiros do Zoodiaco")
                 .build();
     }
-
 }
