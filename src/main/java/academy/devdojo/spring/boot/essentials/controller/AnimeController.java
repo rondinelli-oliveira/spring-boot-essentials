@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -47,6 +49,15 @@ public class AnimeController {
     public ResponseEntity<Anime> findById(@PathVariable long id) {
         log.info("Listando o desenho por codigo: {}" , id);
 //        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
+    }
+
+    @GetMapping(path = "by-id/{id}")
+    public ResponseEntity<Anime> findByIdAuthenticationPrincipal(@PathVariable long id,
+                                                                 @AuthenticationPrincipal UserDetails userDetails) {
+        log.info("Listando o desenho por codigo: {}" , id);
+        log.info(String.valueOf(userDetails));
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
