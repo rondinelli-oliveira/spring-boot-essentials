@@ -1,5 +1,7 @@
 package academy.devdojo.spring.boot.essentials.config;
 
+import academy.devdojo.spring.boot.essentials.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,7 +15,10 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final UserService userService;
 
     /**
      * BasicAuthenticationFilter
@@ -46,12 +51,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         log.info("Password encoded {}", passwordEncoder.encode("test"));
         authenticationManagerBuilder.inMemoryAuthentication()
-                .withUser("rondinelli")
+                .withUser("rondinelli2")
                 .password(passwordEncoder.encode("academy"))
                 .roles("USER","ADMIN")
                 .and()
-                .withUser("devdojo")
+                .withUser("devdojo2")
                 .password(passwordEncoder.encode("academy"))
                 .roles("USER");
+
+        authenticationManagerBuilder.userDetailsService(userService)
+                .passwordEncoder(passwordEncoder);
     }
 }
