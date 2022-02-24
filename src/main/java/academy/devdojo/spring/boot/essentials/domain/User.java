@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @Entity
 @Builder
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,12 +47,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return this.username;
     }
 
     @Override

@@ -12,12 +12,11 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-
-    private final UserRepository userRepository;
+    private final UserRepository devDojoUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username){
-        return Optional.ofNullable(userRepository.findByUsername(username))
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return Optional.ofNullable(devDojoUserRepository.findByUsername(username))
+                .orElseThrow(() -> new UsernameNotFoundException("DevDojo User not found"));
     }
 }
