@@ -29,8 +29,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "The anime name cannot be empty")
-    @NotNull(message = "The anime name cannot be null")
+    @NotEmpty(message = "The user's name cannot be empty")
+    @NotNull(message = "The user's name cannot be null")
     private String name;
 
     private String username;
