@@ -4,12 +4,21 @@ services:
     image: mysql
     container_name: mysql
     environment:
-      DOCKER_HOST: //localhost
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3307:3307"
     volumes:
       - devdojo_data:/var/lib/mysql
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
 
 volumes:
   devdojo_data:
