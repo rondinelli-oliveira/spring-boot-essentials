@@ -20,7 +20,13 @@
 		<java.version>11</java.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <springdoc-openapi-ui.version>1.6.6</springdoc-openapi-ui.version>
-    </properties>
+		<jib-maven-plugin.version>3.2.0</jib-maven-plugin.version>
+		<docker.distroless.image>gcr.io/distroless/java:11</docker.distroless.image>
+<!--		<docker.repo.url>registry.hub.docker.com/rondinellioliveira</docker.repo.url>-->
+		<docker.repo.url>rondinellioliveira</docker.repo.url>
+		<docker.repo.project>spring-boot-essentials</docker.repo.project>
+		<docker.image.name>${docker.repo.url}/${docker.repo.project}</docker.image.name>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -148,6 +154,25 @@
 							<version>0.1.0</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib-maven-plugin.version}</version>
+				<configuration>
+					<from>
+						<image>${docker.distroless.image}</image>
+					</from>
+					<to>
+						<image>${docker.image.name}</image>
+						<tags>
+							<tag>${project.version}</tag>
+						</tags>
+					</to>
+					<container>
+						<mainClass>academy.devdojo.spring.boot.essentials.SpringBootEssentialsApplication</mainClass>
+					</container>
 				</configuration>
 			</plugin>
 		</plugins>
