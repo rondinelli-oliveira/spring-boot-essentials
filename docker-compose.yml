@@ -41,6 +41,5 @@ services:
       <<: *database-variables
     mem_limit: 512m
 
-
 volumes:
   devdojo_data:
